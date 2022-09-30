@@ -1,0 +1,20 @@
+step "run-a-script" {
+    name = "Run a Script"
+    properties = {
+        Octopus.Action.TargetRoles = "test"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = <<-EOT
+                write-output "test variable"
+                write-output "#{TestVariable}"
+            EOT
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
